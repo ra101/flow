@@ -266,7 +266,7 @@ const SidebarTrigger = ({
       data-slot="sidebar-trigger"
       variant="ghost"
       size="icon"
-      className={cn("m-1 size-10 rounded-2xl", className)}
+      className={cn("m-1 size-10 rounded-2xl cursor-w-resize rtl:cursor-e-resize", className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
