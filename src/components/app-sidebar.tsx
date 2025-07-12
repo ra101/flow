@@ -91,9 +91,11 @@ const AppSidebar = () => {
         <SidebarSeparator className="p-0 m-0"/>
         <SidebarFooter className="hover:bg-secondary">
             <SidebarGroupLabel className="font-normal opacity-100">
-                <span className={cn(sidebarComponentCss, "opacity-65")}>{state === "expanded" && "Made with"}</span>
-                <span className="animate-pulse mr-1 ml-1 scale-110">❤️</span>
-                <span className={cn(sidebarComponentCss, "opacity-65")}>{state === "expanded" && "by〈 RA 〉"}</span>
+                <Link target="_blank" href="https://ra101.dev">
+                    <span className={cn(sidebarComponentCss, "opacity-65")}>{state === "expanded" && "Made with"}</span>
+                    <span className="animate-pulse mr-1 ml-1 scale-110">❤️</span>
+                    <span className={cn(sidebarComponentCss, "opacity-65")}>{state === "expanded" && "by〈 RA 〉"}</span>
+                </Link>
             </SidebarGroupLabel>
         </SidebarFooter>
     </Sidebar>
