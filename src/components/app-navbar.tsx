@@ -25,11 +25,7 @@ const AppHeader = () => {
   const { theme, setTheme } = useTheme()
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
   const iconColor = theme === "dark" ? "white" : "black";
-
-  const ThemeIcon = () => {
-      const Icon = theme === "dark" ? SunIcon : MoonIcon;
-      return <Icon fill="white" color={iconColor} onClick={toggleTheme}/>
-  }
+  const ThemeIcon = theme === "dark" ? SunIcon : MoonIcon;
 
   return (
       <NavigationMenu>
@@ -42,7 +38,7 @@ const AppHeader = () => {
           <NavigationGroup>
             <NavigationMenuItem>
               <NavigationMenuLink>
-                <ThemeIcon />
+                <ThemeIcon fill="white" color={iconColor} onClick={toggleTheme}/>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>

@@ -22,10 +22,10 @@ type SideBarDeckButtonProps = {
     state: string;
     text: string;
     link: string;
-    Icon?: React.ComponentType<any> | null;
+    Icon?: React.ComponentType | null;
 };
 
-const SideBarDeckButton: React.FC<SideBarDeckButtonProps> = ({ state, text, link, Icon = null }) => {
+const SideBarDeckButton = ({ state, text, link, Icon = null }: SideBarDeckButtonProps) => {
     return (
         <Button asChild variant="ghost" className="p-0 rounded-2xl justify-start font-normal group-data-[collapsible=icon]:justify-end">
             <Link href={`/deck/${link}`}>
