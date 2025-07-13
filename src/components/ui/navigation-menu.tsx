@@ -4,6 +4,8 @@ import { cva } from "class-variance-authority"
 import { ChevronDownIcon } from "lucide-react"
 
 import { cn } from "@/utils/tailwind"
+import { Separator } from "@/components/ui/separator";
+
 
 const NavigationMenu = ({
   className,
@@ -155,6 +157,24 @@ const NavigationMenuIndicator = ({
   )
 }
 
+const NavigationGroup = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex">
+      {children}
+    </div>
+  );
+}
+
+const NavigationMenuSeparator = () => {
+  return (
+    <NavigationMenuItem>
+      <Separator orientation="vertical" className="h-full ml-1 mr-1" />
+    </NavigationMenuItem>
+  );
+}
+
+
+
 export {
   NavigationMenu,
   NavigationMenuList,
@@ -164,5 +184,7 @@ export {
   NavigationMenuLink,
   NavigationMenuIndicator,
   NavigationMenuViewport,
+  NavigationGroup,
+  NavigationMenuSeparator,
   navigationMenuTriggerStyle,
 }

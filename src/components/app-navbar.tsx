@@ -5,21 +5,14 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationGroup,
+  NavigationMenuSeparator,
 } from "@/components/ui/navigation-menu"
 import { useTheme } from "next-themes"
 
 import {  SidebarTrigger } from "@/components/ui/sidebar";
-import { GithubIcon, MoonIcon, SunIcon, User2Icon } from "lucide-react";
-import Link from "next/link";
+import { CoffeeIcon, GithubIcon, MoonIcon, SunIcon, User2Icon } from "lucide-react";
 
-
-const NavigationGroup = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="flex">
-      {children}
-    </div>
-  );
-}
 
 const AppHeader = () => {
   const { theme, setTheme } = useTheme()
@@ -28,7 +21,7 @@ const AppHeader = () => {
   const ThemeIcon = theme === "dark" ? SunIcon : MoonIcon;
 
   return (
-      <NavigationMenu>
+      <NavigationMenu >
         <NavigationMenuList>
           <NavigationGroup>
             <NavigationMenuItem>
@@ -46,11 +39,15 @@ const AppHeader = () => {
                 <User2Icon  fill="white" color={iconColor} />
               </NavigationMenuLink>
             </NavigationMenuItem>
+            <NavigationMenuSeparator />
             <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <Link target="_blank" href="https://github.com/ra101/flow">
-                  <GithubIcon fill="#888" color={iconColor} />
-                </Link>
+              <NavigationMenuLink target="_blank" href="https://github.com/ra101/flow">
+                <GithubIcon fill="#888" color={iconColor} />
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink target="_blank" href="https://coff.ee/ra101">
+                <CoffeeIcon fill="#c70" color={iconColor} />
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationGroup>
