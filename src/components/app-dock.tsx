@@ -1,42 +1,47 @@
+'use client'
+
 import { Dock, DockIcon, } from "@/components/ui/dock";
 import { Separator } from "@/components/ui/separator";
-import { Home, KanbanIcon, ListTodoIcon, CalendarFoldIcon, TimerIcon, NotebookIcon, StarIcon } from "lucide-react";
+import { KanbanIcon, ListTodoIcon, CalendarFoldIcon, NotebookIcon, StarIcon, HomeIcon } from "lucide-react";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+
+
+type DockToolButtonProps = {
+    link: string;
+    Icon: React.ComponentType;
+};
+
+
+const DockToolButton = ({ link, Icon }: DockToolButtonProps) => {
+    const isActive = useParams<{ board: string }>().board === link;
+    return (
+      <Button asChild variant="ghost" className="m-0 data-[active=true]:bg-accent data-[active=true]:text-accent-foreground dark:data-[active=true]:bg-accent/50"
+        data-active={isActive}>
+        <Link href={link}>
+            {Icon && <Icon />}
+        </Link>
+      </Button>
+    );
+};
 
 const AppDock = () => {
-  return (
-<Dock className="bottom-0">
-  <DockIcon>
-    <Home />
-  </DockIcon>
-  <Separator orientation="vertical" className="h-full" />
-  <DockIcon>
-    <ListTodoIcon />
-    </DockIcon>
+return (
+  <Dock>
+    <DockIcon><DockToolButton link="home" Icon={HomeIcon}/></DockIcon>
 
+    <Separator orientation="vertical" className="h-full" />
 
-  <DockIcon>
-    <TimerIcon />
-  </DockIcon>
+    <DockIcon><DockToolButton link="tasks" Icon={ListTodoIcon}/></DockIcon>
+    <DockIcon><DockToolButton link="kanban" Icon={KanbanIcon}/></DockIcon>
+    <DockIcon><DockToolButton link="notes" Icon={NotebookIcon}/></DockIcon>
+    <DockIcon><DockToolButton link="calender" Icon={CalendarFoldIcon}/></DockIcon>
 
-  <DockIcon>
-    <KanbanIcon />
-  </DockIcon>
+    <Separator orientation="vertical" className="h-full" />
 
-
-  <DockIcon>
-    <NotebookIcon />
-  </DockIcon>
-
-  <DockIcon>
-    <CalendarFoldIcon />
-  </DockIcon>
-  <Separator orientation="vertical" className="h-full" />
-
-  <DockIcon>
-    <StarIcon />
-  </DockIcon>
-
-</Dock>
+    <DockIcon><DockToolButton link="activity" Icon={StarIcon}/></DockIcon>
+  </Dock>
   );
 }
 

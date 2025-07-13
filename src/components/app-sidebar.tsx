@@ -14,25 +14,25 @@ import { Button } from "@/components/ui/button";
 import {  SaveIcon, SquareDashedMousePointerIcon, CircleFadingPlusIcon } from "lucide-react";
 import { cn } from "@/utils/tailwind";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 
 
 const sidebarComponentCss = "group-data-[collapsible=icon]:opacity-0 transition-[opacity] delay-150 duration-200 ease-linear"
 
 type SideBarDeckButtonProps = {
-    state: string;
     text: string;
-    link: string;
+    endpoint: string;
+    board?: string;
     Icon?: React.ComponentType | null;
 };
 
-const SideBarDeckButton = ({ state, text, link, Icon = null }: SideBarDeckButtonProps) => {
-    const href = `/deck/${link}`
-    const isActive = usePathname() === href;
+const SideBarDeckButton = ({ text, endpoint, board = "home", Icon = null }: SideBarDeckButtonProps) => {
+    const { state } = useSidebar()
+    const isActive = useParams<{ endpoint: string }>().endpoint === endpoint;
     return (
         <Button asChild variant="ghost" className="p-0 pl-2 rounded-2xl justify-start font-normal group-data-[collapsible=icon]:justify-end data-[active=true]:bg-accent data-[active=true]:text-accent-foreground dark:data-[active=true]:bg-accent/50"
         data-active={isActive}>
-            <Link href={href}>
+            <Link href={`/deck/${endpoint}/${board}`}>
                 {Icon && <span className="m-0"><Icon /></span>}
                 <span className={sidebarComponentCss}>{state === "expanded" && text}</span>
             </Link>
@@ -61,16 +61,17 @@ const AppSidebar = () => {
             <SidebarSeparator />
             <SidebarGroup>
                 <SideBarDeckButton
-                    state={state}
                     Icon={SaveIcon}
                     text="In-Browser Deck"
-                    link="local" />
+                    endpoint="local" />
                 <SideBarDeckButton
-                    state={state}
                     Icon={SquareDashedMousePointerIcon}
                     text="Temporary Deck"
-                    link="temp" />
-                <SideBarDeckButton state={state} Icon={CircleFadingPlusIcon} text="New Cloud Deck" link="untitled-flowdeck" />
+                    endpoint="temp" />
+                <SideBarDeckButton
+                    Icon={CircleFadingPlusIcon}
+                    text="New Cloud Deck"
+                    endpoint="untitled-flowdeck" />
             </SidebarGroup >
             <SidebarGroup className="p-0">
                 <Button asChild variant="secondary" className="p-0 rounded-2xl hover:bg-primary/5">
@@ -89,7 +90,7 @@ const AppSidebar = () => {
                 </span>
             </SidebarGroupLabel>
             <SidebarGroup className="overflow-auto mt-0 pt-0">
-                <SideBarDeckButton state={state} text="F l o w" link="endpoint" />
+                <SideBarDeckButton text="F l o w" endpoint="endpoint" board="kanban"/>
             </SidebarGroup >
         </SidebarContent>
         <SidebarFooter>

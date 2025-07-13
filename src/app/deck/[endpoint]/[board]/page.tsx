@@ -2,16 +2,19 @@ import AppDock from "@/components/app-dock";
 import { notFound } from "next/navigation";
 
 interface DeckPageProps {
-  params: { endpoint: string };
+  params: {
+    endpoint: string,
+    board: string
+  };
 }
 
 const Deck = async ({ params }: DeckPageProps) => {
-  const { endpoint } = await params;
+  const { endpoint, board } = await params;
   if (!endpoint) return notFound();
   return (
     <div className="flex flex-col items-center justify-even h-screen text-3xl">
       <div className="flex">
-      Deck: <span className="ml-2 font-bold">{endpoint}</span>
+      Deck: <span className="ml-2 font-bold">{endpoint}/{board}</span>
 
       </div>
       

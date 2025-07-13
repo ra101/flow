@@ -8,8 +8,15 @@ const nextConfig: NextConfig = ({
       compilationMode: 'annotation',
     },
   },
-  headers: async () => {
-    return [
+  redirects: async () => ([
+      {
+        source: '/deck/:endpoint',
+        destination: '/deck/:endpoint/home',
+        permanent: true,
+      },
+  ]),
+  headers: async () => (
+      [
       {
         source: '/(.*)',
         headers: [
@@ -45,7 +52,7 @@ const nextConfig: NextConfig = ({
         ],
       },
     ]
-  },
+  ),
 
 })
 
