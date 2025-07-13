@@ -56,8 +56,16 @@ const AppSidebar = () => {
         <SidebarContent className="overflow-x-hidden">
             <SidebarSeparator />
             <SidebarGroup>
-                <SideBarDeckButton state={state} Icon={SaveIcon} text="Browser Deck" link="local" />
-                <SideBarDeckButton state={state} Icon={SquareDashedMousePointerIcon} text="Tab Deck" link="tab" />
+                <SideBarDeckButton
+                    state={state}
+                    Icon={SaveIcon}
+                    text="In-Browser Deck"
+                    link="local" />
+                <SideBarDeckButton
+                    state={state}
+                    Icon={SquareDashedMousePointerIcon}
+                    text="Temporary Deck"
+                    link="temp" />
                 <SideBarDeckButton state={state} Icon={CircleFadingPlusIcon} text="New Cloud Deck" link="untitled-flowdeck" />
             </SidebarGroup >
             <SidebarGroup className="p-0">
