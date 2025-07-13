@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import {  SaveIcon, SquareDashedMousePointerIcon, CircleFadingPlusIcon } from "lucide-react";
 import { cn } from "@/utils/tailwind";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 
 const sidebarComponentCss = "group-data-[collapsible=icon]:opacity-0 transition-[opacity] delay-150 duration-200 ease-linear"
@@ -26,9 +27,12 @@ type SideBarDeckButtonProps = {
 };
 
 const SideBarDeckButton = ({ state, text, link, Icon = null }: SideBarDeckButtonProps) => {
+    const href = `/deck/${link}`
+    const isActive = usePathname() === href;
     return (
-        <Button asChild variant="ghost" className="p-0 rounded-2xl justify-start font-normal group-data-[collapsible=icon]:justify-end">
-            <Link href={`/deck/${link}`}>
+        <Button asChild variant="ghost" className="p-0 pl-2 rounded-2xl justify-start font-normal group-data-[collapsible=icon]:justify-end data-[active=true]:bg-accent data-[active=true]:text-accent-foreground dark:data-[active=true]:bg-accent/50"
+        data-active={isActive}>
+            <Link href={href}>
                 {Icon && <span className="m-0"><Icon /></span>}
                 <span className={sidebarComponentCss}>{state === "expanded" && text}</span>
             </Link>
