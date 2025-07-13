@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --experimental-https",
-    "scan": "npx react-scan https://localhost:3000",
-    "stage": "next build --turbopack && next start",
+    "dev": "next dev --turbopack --experimental-https -p 3443",
+    "scan": "npx react-scan https://localhost:3443",
+    "stage": "next build --turbopack && next start -p 3000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3000",
     "lint": "next lint --fix",
     "info": "next info"
   },
