@@ -1,15 +1,10 @@
+'use client';
+
 import AppDock from "@/components/app-dock";
-import { notFound } from "next/navigation";
+import { useParams , notFound } from "next/navigation";
 
-interface DeckPageProps {
-  params: {
-    endpoint: string,
-    board: string
-  };
-}
-
-const Deck = async ({ params }: DeckPageProps) => {
-  const { endpoint, board } = await params;
+const Deck = () => {
+  const {endpoint, board} = useParams<{ endpoint: string, board: string}>();
   if (!endpoint) return notFound();
   return (
     <div className="flex flex-col items-center justify-even h-screen text-3xl">
