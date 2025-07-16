@@ -9,8 +9,8 @@ import {
     SidebarHeader,
     SidebarSeparator,
     useSidebar,
-} from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
+} from "@/components/composites/sidebar";
+import { Button } from "@/components/primitives/button";
 import {  SaveIcon, SquareDashedMousePointerIcon, CircleFadingPlusIcon } from "lucide-react";
 import { cn } from "@/utils/tailwind";
 import Link from "next/link";

@@ -1,7 +1,7 @@
 
 import { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/primitives/button";
 import { cn } from "@/utils/tailwind";
 import { ArrowRightIcon } from "lucide-react";
 

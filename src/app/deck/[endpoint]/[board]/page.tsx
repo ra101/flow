@@ -1,6 +1,6 @@
 'use client';
 
-import AppDock from "@/components/app-dock";
+import AppDock from "@/components/containers/app-dock";
 import { useParams , notFound } from "next/navigation";
 
 const Deck = () => {

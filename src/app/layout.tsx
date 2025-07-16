@@ -1,12 +1,12 @@
 import "./globals.css";
 import manifest from "./manifest.json";
 
-import { SidebarProvider } from "@/components/ui/sidebar";
-import AppSidebar from "@/components/app-sidebar";
-import AppNavbar from "@/components/app-navbar";
-import ThemeProvider from "@/components/theme-provider"
+import { SidebarProvider } from "@/components/composites/sidebar";
+import AppSidebar from "@/components/containers/app-sidebar";
+import AppNavbar from "@/components/containers/app-navbar";
+import ThemeProvider from "@/components/containers/theme-provider"
 import type { Metadata, Viewport  } from 'next';
-import ServiceWorker from "@/components/service-worker";
+import ServiceWorker from "@/components/containers/service-worker";
 import Head from "next/head";
 
 

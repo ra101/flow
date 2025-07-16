@@ -1,6 +1,6 @@
 'use client';
 
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/primitives/card';
 import { cn } from '@/utils/tailwind';
 import {
   DndContext,

@@ -7,10 +7,10 @@ import {
   NavigationMenuList,
   NavigationGroup,
   NavigationMenuSeparator,
-} from "@/components/ui/navigation-menu"
+} from "@/components/composites/navigation-menu"
 import { useTheme } from "next-themes"
 
-import {  SidebarTrigger } from "@/components/ui/sidebar";
+import {  SidebarTrigger } from "@/components/composites/sidebar";
 import { CoffeeIcon, GithubIcon, MoonIcon, SunIcon, User2Icon } from "lucide-react";
 
 

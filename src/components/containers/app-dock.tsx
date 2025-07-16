@@ -1,9 +1,9 @@
 'use client'
 
-import { Dock, DockIcon, } from "@/components/ui/dock";
-import { Separator } from "@/components/ui/separator";
+import { Dock, DockIcon, } from "@/components/composites/dock";
+import { Separator } from "@/components/primitives/separator";
 import { KanbanIcon, ListTodoIcon, CalendarFoldIcon, NotebookIcon, StarIcon, HomeIcon } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../primitives/button";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 

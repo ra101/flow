@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority"
 import { ChevronDownIcon } from "lucide-react"
 
 import { cn } from "@/utils/tailwind"
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/primitives/separator";
 
 
 const NavigationMenu = ({
