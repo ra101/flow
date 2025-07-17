@@ -1,7 +1,7 @@
 'use client'
 
 import {
-    Sidebar,
+    Sidebar as SidebarPrimitive,
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
@@ -10,8 +10,10 @@ import {
     SidebarSeparator,
     useSidebar,
 } from "@/components/composites/sidebar";
+import type { BoardType } from "@/utils/constants";
 import { Button } from "@/components/primitives/button";
-import {  SaveIcon, SquareDashedMousePointerIcon, CircleFadingPlusIcon } from "lucide-react";
+import { LocalStorageDeck, InMemoryDeck } from "@/utils/constants";
+import { CircleFadingPlusIcon } from "lucide-react";
 import { cn } from "@/utils/tailwind";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -22,7 +24,7 @@ const sidebarComponentCss = "group-data-[collapsible=icon]:opacity-0 transition-
 type SideBarDeckButtonProps = {
     text: string;
     endpoint: string;
-    board?: string;
+    board?: BoardType;
     Icon?: React.ComponentType | null;
 };
 
@@ -43,10 +45,10 @@ const SideBarDeckButton = ({ text, endpoint, board = "home", Icon = null }: Side
 
 
 
-const AppSidebar = () => {
+const Sidebar = () => {
     const { state } = useSidebar()
     return (
-    <Sidebar>
+    <SidebarPrimitive>
         <SidebarHeader className="hover:bg-secondary">
             <SidebarGroupLabel asChild className="opacity-100 font-medium">
                 <Link href="/">
@@ -61,13 +63,13 @@ const AppSidebar = () => {
             <SidebarSeparator />
             <SidebarGroup>
                 <SideBarDeckButton
-                    Icon={SaveIcon}
-                    text="In-Browser Deck"
-                    endpoint="local" />
+                    Icon={LocalStorageDeck.icon}
+                    text={LocalStorageDeck.name}
+                    endpoint={LocalStorageDeck.id} />
                 <SideBarDeckButton
-                    Icon={SquareDashedMousePointerIcon}
-                    text="Temporary Deck"
-                    endpoint="temp" />
+                    Icon={InMemoryDeck.icon}
+                    text={InMemoryDeck.name}
+                    endpoint={InMemoryDeck.id} />
                 <SideBarDeckButton
                     Icon={CircleFadingPlusIcon}
                     text="New Cloud Deck"
@@ -111,8 +113,8 @@ const AppSidebar = () => {
                 </Link>
             </SidebarGroupLabel>
         </SidebarFooter>
-    </Sidebar>
+    </SidebarPrimitive>
     );
 }
 
-export default AppSidebar;
+export default Sidebar;

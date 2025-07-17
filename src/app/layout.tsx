@@ -2,8 +2,8 @@ import "./globals.css";
 import manifest from "./manifest.json";
 
 import { SidebarProvider } from "@/components/composites/sidebar";
-import AppSidebar from "@/components/containers/app-sidebar";
-import AppNavbar from "@/components/containers/app-navbar";
+import Sidebar from "@/components/containers/sidebar";
+import Navbar from "@/components/containers/navbar";
 import ThemeProvider from "@/components/containers/theme-provider"
 import type { Metadata, Viewport  } from 'next';
 import ServiceWorker from "@/components/containers/service-worker";
@@ -56,9 +56,9 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <body className="overflow-hidden">
         <ThemeProvider>
           <SidebarProvider>
-            <AppSidebar />
+            <Sidebar />
             <main className="size-full">
-            <AppNavbar />
+              <Navbar />
               {children}
             </main>
           </SidebarProvider>

@@ -12,13 +12,15 @@ import { useTheme } from "next-themes"
 
 import {  SidebarTrigger } from "@/components/composites/sidebar";
 import { CoffeeIcon, GithubIcon, MoonIcon, SunIcon, User2Icon } from "lucide-react";
+import { SimpleTooltip } from "../primitives/tooltip";
 
 
-const AppHeader = () => {
+const NavBar = () => {
   const { theme, setTheme } = useTheme()
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
   const iconColor = theme === "dark" ? "white" : "black";
   const ThemeIcon = theme === "dark" ? SunIcon : MoonIcon;
+  const ThemeTip = theme === "dark" ? "Light Mode" : "Dark Mode";
 
   return (
       <NavigationMenu >
@@ -30,25 +32,33 @@ const AppHeader = () => {
           </NavigationGroup>
           <NavigationGroup>
             <NavigationMenuItem>
-              <NavigationMenuLink>
-                <ThemeIcon fill="white" color={iconColor} onClick={toggleTheme}/>
-              </NavigationMenuLink>
+              <SimpleTooltip tip={ThemeTip}>
+                <NavigationMenuLink>
+                  <ThemeIcon fill="white" color={iconColor} onClick={toggleTheme}/>
+                </NavigationMenuLink>
+              </SimpleTooltip>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink>
-                <User2Icon  fill="white" color={iconColor} />
-              </NavigationMenuLink>
+              <SimpleTooltip tip="Login">
+                <NavigationMenuLink>
+                  <User2Icon  fill="white" color={iconColor} />
+                </NavigationMenuLink>
+              </SimpleTooltip>
             </NavigationMenuItem>
             <NavigationMenuSeparator />
             <NavigationMenuItem>
-              <NavigationMenuLink target="_blank" href="https://github.com/ra101/flow">
-                <GithubIcon fill="#888" color={iconColor} />
-              </NavigationMenuLink>
+              <SimpleTooltip tip="source_code">
+                <NavigationMenuLink target="_blank" href="https://github.com/ra101/flow">
+                  <GithubIcon fill="#888" color={iconColor} />
+                </NavigationMenuLink>
+              </SimpleTooltip>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink target="_blank" href="https://coff.ee/ra101">
-                <CoffeeIcon fill="#c70" color={iconColor} />
-              </NavigationMenuLink>
+              <SimpleTooltip tip="Sponsor">
+                <NavigationMenuLink target="_blank" href="https://coff.ee/ra101">
+                  <CoffeeIcon fill="#c70" color={iconColor} />
+                </NavigationMenuLink>
+              </SimpleTooltip>
             </NavigationMenuItem>
           </NavigationGroup>
         </NavigationMenuList>
@@ -56,4 +66,4 @@ const AppHeader = () => {
   );
 };
 
-export default AppHeader;
+export default NavBar;
