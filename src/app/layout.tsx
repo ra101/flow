@@ -58,8 +58,10 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <SidebarProvider>
             <Sidebar />
             <main className="size-full">
+              <div className="flex flex-col h-dvh">
               <Navbar />
-              {children}
+                {children}
+            </div>
             </main>
           </SidebarProvider>
         </ThemeProvider>

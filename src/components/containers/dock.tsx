@@ -33,7 +33,7 @@ const DockToolButton = ({ link, Icon, tooltip }: DockToolButtonProps) => {
 
 const Dock = () => {
 return (
-  <DockPrimitive>
+  <DockPrimitive className="m-2">
 
     <DockIcon key={HomeBoard.id}>
       <DockToolButton link={HomeBoard.id} Icon={HomeBoard.icon} tooltip={HomeBoard.tooltip} />

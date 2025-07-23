@@ -20,7 +20,7 @@ const NavigationMenu = ({
       data-slot="navigation-menu"
       data-viewport={viewport}
       className={cn(
-        "group/navigation-menu relative flex w-full h-full flex-col items-stretch justify-stretch",
+        "group/navigation-menu relative flex w-full flex-col items-stretch justify-stretch",
         className
       )}
       {...props}
