@@ -16,10 +16,11 @@ import { LocalStorageDeck, InMemoryDeck } from "@/utils/constants";
 import { CircleFadingPlusIcon } from "lucide-react";
 import { cn } from "@/utils/tailwind";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 
-const sidebarComponentCss = "group-data-[collapsible=icon]:opacity-0 transition-[opacity] delay-150 duration-200 ease-linear"
+const sidebarComponentCSS = "group-data-[collapsible=icon]:opacity-0 transition-[opacity] delay-150 duration-200 ease-linear"
+const sidebarSecondaryButtonCSS = "p-0 rounded-2xl text-secondary-foreground/75 hover:bg-primary hover:text-primary-foreground data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
 
 type SideBarDeckButtonProps = {
     text: string;
@@ -32,17 +33,44 @@ const SideBarDeckButton = ({ text, endpoint, board = "home", Icon = null }: Side
     const { state } = useSidebar()
     const isActive = useParams<{ endpoint: string }>().endpoint === endpoint;
     return (
-        <Button asChild variant="ghost" className="p-0 pl-2 rounded-2xl justify-start font-normal group-data-[collapsible=icon]:justify-end data-[active=true]:bg-accent data-[active=true]:text-accent-foreground dark:data-[active=true]:bg-accent/50"
+        <Button asChild variant="ghost" className="p-0 pl-2 rounded-2xl justify-start font-normal group-data-[collapsible=icon]:justify-end data-[active=true]:bg-primary/10"
         data-active={isActive}>
             <Link href={`/deck/${endpoint}/${board}`}>
                 {Icon && <span className="m-0"><Icon /></span>}
-                <span className={sidebarComponentCss}>{state === "expanded" && text}</span>
+                <span className={sidebarComponentCSS}>{state === "expanded" && text}</span>
             </Link>
         </Button>
     );
 };
 
 
+const ToolSetButton = () => {
+    const endpoint = "/toolset";
+    const { state } = useSidebar()
+    const isActive = usePathname() === endpoint;
+    return (
+        <Button asChild variant="secondary" className={sidebarSecondaryButtonCSS} data-active={isActive}>
+            <Link href={endpoint}>
+                <span className="m-0 scale-125">🛠️</span>
+                {state === "expanded" && <span className="group-data-[collapsible=icon]:opacity-0 transition-[opacity] delay-150 duration-200  ease-linear">
+                Toolset
+            </span>}
+            </Link>
+        </Button>
+    )
+}
+
+
+const ArchiveButton = () => {
+    const { state } = useSidebar()
+    return (
+        <Button variant="secondary" className="p-0 rounded-2xl text-secondary-foreground/75 hover:bg-primary hover:text-primary-foreground">
+            <span className="m-0 scale-125">📦</span>
+            {state === "expanded" && <span className={cn(sidebarComponentCSS, "group-data-[collapsible=icon]:opacity-0 transition-[opacity] delay-150 duration-200  ease-linear")}>Archive</span>}
+        </Button>
+
+    )
+}
 
 
 const Sidebar = () => {
@@ -53,7 +81,7 @@ const Sidebar = () => {
             <SidebarGroupLabel asChild className="opacity-100 font-medium">
                 <Link href="/">
                     <span className="mr-1 ml-1 scale-125">🚀</span>
-                    <span className={sidebarComponentCss}>
+                    <span className={sidebarComponentCSS}>
                         {state === "expanded" && "Focus List Organize Win "}
                     </span>
                 </Link>
@@ -76,18 +104,10 @@ const Sidebar = () => {
                     endpoint="untitled-flowdeck" />
             </SidebarGroup >
             <SidebarGroup className="p-0">
-                <Button asChild variant="secondary" className="p-0 rounded-2xl hover:bg-primary/5">
-                <Link href="/toolset">
-                    <span className="m-0 scale-125">🛠️</span>
-                    {state === "expanded" &&
-                        <span className="group-data-[collapsible=icon]:opacity-0 transition-[opacity] delay-150 duration-200 opacity-65 ease-linear">
-                            Toolset
-                        </span>}
-                </Link>
-                </Button>
+                <ToolSetButton />
             </SidebarGroup >
             <SidebarGroupLabel className="pb-0 pr-5 mb-0 font-normal text-sm self-start opacity-65">
-                <span className={sidebarComponentCss}>
+                <span className={sidebarComponentCSS}>
                     {state === "expanded" && "Saved Decks:"}
                 </span>
             </SidebarGroupLabel>
@@ -97,19 +117,16 @@ const Sidebar = () => {
         </SidebarContent>
         <SidebarFooter>
             <SidebarGroup className="p-0">
-                <Button variant="secondary" className="p-0 rounded-2xl hover:bg-primary/5">
-                <span className="m-0 scale-125">📦</span>
-                {state === "expanded" && <span className={cn(sidebarComponentCss, "opacity-65 ease-linear")}>Archive</span>}
-                </Button>
+                <ArchiveButton />
             </SidebarGroup>
         </SidebarFooter>
         <SidebarSeparator className="p-0 m-0"/>
         <SidebarFooter className="hover:bg-secondary">
             <SidebarGroupLabel className="font-normal opacity-100">
                 <Link target="_blank" href="https://ra101.dev">
-                    <span className={cn(sidebarComponentCss, "opacity-65")}>{state === "expanded" && "Made with"}</span>
+                    <span className={cn(sidebarComponentCSS, "opacity-65")}>{state === "expanded" && "Made with"}</span>
                     <span className="animate-pulse mr-1 ml-1 scale-110">❤️</span>
-                    <span className={cn(sidebarComponentCss, "opacity-65")}>{state === "expanded" && "by〈 RA 〉"}</span>
+                    <span className={cn(sidebarComponentCSS, "opacity-65")}>{state === "expanded" && "by〈 RA 〉"}</span>
                 </Link>
             </SidebarGroupLabel>
         </SidebarFooter>
