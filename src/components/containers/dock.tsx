@@ -5,7 +5,7 @@ import { Separator } from "@/components/primitives/separator";
 import { SimpleTooltip } from "@/components/primitives/tooltip";
 import { HomeBoard, ProductivityBoards, ActivityBoard } from "@/utils/constants";
 import type { BoardType } from "@/utils/constants";
-import { Button } from "../primitives/button";
+import { Button } from "@/components/primitives/button";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 

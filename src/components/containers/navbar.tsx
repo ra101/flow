@@ -12,7 +12,7 @@ import { useTheme } from "next-themes"
 
 import {  SidebarTrigger } from "@/components/composites/sidebar";
 import { CoffeeIcon, GithubIcon, MoonIcon, SunIcon, User2Icon } from "lucide-react";
-import { SimpleTooltip } from "../primitives/tooltip";
+import { SimpleTooltip } from "@/components/primitives/tooltip";
 
 
 const NavBar = () => {

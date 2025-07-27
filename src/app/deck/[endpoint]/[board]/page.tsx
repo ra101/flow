@@ -1,6 +1,7 @@
 'use client';
 
 import Dock from "@/components/containers/dock";
+import NoteBook from "@/components/containers/notebook";
 import { BoardsIds } from "@/utils/constants";
 import type { BoardType } from "@/utils/constants";
 import { useParams , notFound } from "next/navigation";
@@ -9,11 +10,11 @@ const Deck = () => {
   const {endpoint, board} = useParams<{ endpoint: string, board: BoardType}>();
   if (!BoardsIds.includes(board)) return notFound();
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex items-center justify-center flex-1 text-3xl bg-accent">
-        Deck: <span className="ml-2 font-bold">{endpoint}/{board}</span>
+    <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex items-center justify-center flex-1 text-3xl bg-accent overflow-hidden">
+        <NoteBook />
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center static">
           <Dock />
       </div>
 
