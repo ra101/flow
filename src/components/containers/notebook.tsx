@@ -324,7 +324,6 @@ const NoteBook = () => {
       content={content}
       onUpdate={handleUpdate}
       placeholder="Start typing..."
-      id="notebook-editor"
     >
       <EditorBubbleMenu>
         <EditorSelector title="Text">

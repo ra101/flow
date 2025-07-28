@@ -1,7 +1,7 @@
 'use client';
 
 import Dock from "@/components/containers/dock";
-import NoteBook from "@/components/containers/notebook";
+import Kanban from "@/components/containers/kanban";
 import { BoardsIds } from "@/utils/constants";
 import type { BoardType } from "@/utils/constants";
 import { useParams , notFound } from "next/navigation";
@@ -12,7 +12,7 @@ const Deck = () => {
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
       <div className="flex items-center justify-center flex-1 text-3xl bg-accent overflow-hidden">
-        <NoteBook />
+        <Kanban />
       </div>
       <div className="flex items-center justify-center static">
           <Dock />
