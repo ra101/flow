@@ -6,21 +6,23 @@ import {
     KanbanCards,
     KanbanHeader,
     KanbanProvider,
+    KanbanFocusButton,
 } from '@/components/composites/kanban';
 import { useState } from 'react';
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 const columns = [
-    { id: faker.string.uuid(), name: 'BackLog', color: '#6B7280' },
-    { id: faker.string.uuid(), name: 'Prioritized', color: '#6B7280' },
-    { id: faker.string.uuid(), name: 'In Progress', color: '#F59E0B' },
-    { id: faker.string.uuid(), name: 'Done', color: '#10B981' },
+    { id: faker.string.uuid(), tag: "kanban-backlog-column", name: 'Backlog', color: '#999999' },
+    { id: faker.string.uuid(), tag: "kanban-prioritized-column", name: 'Prioritized', color: '#ff6666' },
+    { id: faker.string.uuid(), tag: "kanban-in-progress-column", name: 'In Progress', color: '#6666ff' },
+    { id: faker.string.uuid(), tag: "kanban-done-column", name: 'Done', color: '#66ff66' },
+    { id: faker.string.uuid(), tag: "kanban-archive-column", name: 'Archive', color: '#996666' },
 ];
 
 const exampleFeatures = Array.from({ length: 20 })
   .fill(null)
   .map(() => ({
     id: faker.string.uuid(),
-    name: capitalize(faker.company.buzzPhrase()),
+    name: capitalize(faker.company.buzzPhrase() + faker.company.buzzPhrase()),
     startAt: faker.date.past({ years: 0.5, refDate: new Date() }),
     endAt: faker.date.future({ years: 0.5, refDate: new Date() }),
     column: faker.helpers.arrayElement(columns).id,
@@ -37,13 +39,15 @@ const shortDateFormatter = new Intl.DateTimeFormat('en-US', {
 const Kanban = () => {
   const [features, setFeatures] = useState(exampleFeatures);
   return (
+    <>
     <KanbanProvider
       columns={columns}
       data={features}
       onDataChange={setFeatures}
+      className='ml-2 mr-2'
     >
       {(column) => (
-        <KanbanBoardComposite id={column.id} key={column.id}>
+        <KanbanBoardComposite id={column.id} key={column.id} tag={column.tag}>
           <KanbanHeader>
             <div className="flex items-center gap-2">
               <div
@@ -78,6 +82,8 @@ const Kanban = () => {
         </KanbanBoardComposite>
       )}
     </KanbanProvider>
+    <KanbanFocusButton />
+    </>
   );
 };
 export default Kanban;

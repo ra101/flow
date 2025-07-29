@@ -32,6 +32,8 @@ import tunnel from 'tunnel-rat';
 import { Card } from '@/components/primitives/card';
 import { ScrollArea, ScrollBar } from '@/components/primitives/scroll-area';
 import { cn } from '@/utils/tailwind';
+import { Button } from '../primitives/button';
+import { SimpleTooltip } from '../primitives/tooltip';
 
 const t = tunnel();
 
@@ -66,10 +68,11 @@ const KanbanContext = createContext<KanbanContextProps>({
 export type KanbanBoardProps = {
   id: string;
   children: ReactNode;
+  tag?: string;
   className?: string;
 };
 
-export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
+export const KanbanBoard = ({ id, children, tag, className }: KanbanBoardProps) => {
   const { isOver, setNodeRef } = useDroppable({
     id,
   });
@@ -77,10 +80,11 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
   return (
     <div
       className={cn(
-        'flex size-full min-h-40 flex-col divide-y overflow-hidden rounded-md border bg-secondary text-xs shadow-sm ring-2 transition-all',
+        'flex size-full min-h-40 flex-col divide-y overflow-x-hidden rounded-md border bg-accent/20 text-xs ring-2 transition-all overflow-y-auto',
         isOver ? 'ring-primary' : 'ring-transparent',
         className
       )}
+      id={tag}
       ref={setNodeRef}
     >
       {children}
@@ -121,7 +125,7 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
       <div style={style} {...listeners} {...attributes} ref={setNodeRef}>
         <Card
           className={cn(
-            'cursor-grab gap-4 rounded-md p-3 shadow-sm',
+            'cursor-grab gap-4 rounded-md p-3',
             isDragging && 'pointer-events-none cursor-grabbing opacity-30',
             className
           )}
@@ -133,7 +137,7 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
         <t.In>
           <Card
             className={cn(
-              'cursor-grab gap-4 rounded-md p-3 shadow-sm ring-2 ring-primary',
+              'cursor-grab gap-4 rounded-md p-3 ring-2 ring-primary',
               isDragging && 'cursor-grabbing',
               className
             )}
@@ -165,7 +169,7 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
     <ScrollArea className="overflow-hidden">
       <SortableContext items={items}>
         <div
-          className={cn('flex flex-grow flex-col gap-2 p-2', className)}
+          className={cn('flex flex-grow flex-col gap-2 p-1', className)}
           {...props}
         >
           {filteredData.map(children)}
@@ -319,7 +323,7 @@ export const KanbanProvider = <
       >
         <div
           className={cn(
-            'grid size-full auto-cols-fr grid-flow-col gap-4',
+            'grid size-full auto-cols-fr grid-flow-col gap-2',
             className
           )}
         >
@@ -336,3 +340,56 @@ export const KanbanProvider = <
     </KanbanContext.Provider>
   );
 };
+
+
+const _setDisplay = (element: Element | null, display: string) => {
+  if (element && element instanceof HTMLElement) {
+    element.style.display = display;
+  }
+}
+
+const _getDisplay = (element: Element | null) => {
+  if (element && element instanceof HTMLElement) {
+    return element.style.display;
+  }
+  return null;
+}
+
+
+export const KanbanFocusButton = () => {
+  const [isFocused, setIsFocused] = useState(false);
+  const backlogColumn = document.querySelector('#kanban-backlog-column')
+  const archiveColumn = document.querySelector('#kanban-archive-column')
+
+  const currentView = (_getDisplay(backlogColumn) === 'none' || _getDisplay(archiveColumn) === 'none')
+
+  if (currentView !== isFocused) {
+    setIsFocused(currentView);
+  }
+
+  const toggleFocus = () => {
+    if (isFocused) {
+      _setDisplay(backlogColumn, 'block');
+      _setDisplay(archiveColumn, 'block');
+      setIsFocused(false);
+    } else {
+      _setDisplay(backlogColumn, 'none');
+      _setDisplay(archiveColumn, 'none');
+      setIsFocused(true);
+    }
+  };
+
+  const [buttonText, tip] = isFocused ? [
+    'Plan View', 'Show Backlog and Archive columns'
+  ] : ['Focus View', 'Hide Backlog and Archive columns'];
+
+  return (
+    <SimpleTooltip tip={tip}>
+      <Button variant="outline" className='w-30 absolute right-9 bottom-2 p-7 text-sm italic
+      hover:bg-primary hover:text-primary-foreground dark:hover:bg-primary dark:hover:text-primary-foreground'
+      onClick={toggleFocus}>
+        {buttonText}
+      </Button>
+    </SimpleTooltip>
+  );
+}

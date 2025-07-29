@@ -11,7 +11,7 @@ const Deck = () => {
   if (!BoardsIds.includes(board)) return notFound();
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
-      <div className="flex items-center justify-center flex-1 text-3xl bg-accent overflow-hidden">
+      <div className="flex items-center justify-center flex-1 text-3xl overflow-hidden">
         <Kanban />
       </div>
       <div className="flex items-center justify-center static">
