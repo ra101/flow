@@ -12,7 +12,7 @@ import {
 } from "@/components/composites/sidebar";
 import type { BoardType } from "@/utils/constants";
 import { Button } from "@/components/primitives/button";
-import { LocalStorageDeck, InMemoryDeck } from "@/utils/constants";
+import { LocalStorageDeck, InMemoryDeck, ExampleDeck } from "@/utils/constants";
 import { CircleFadingPlusIcon } from "lucide-react";
 import { cn } from "@/utils/tailwind";
 import Link from "next/link";
@@ -36,7 +36,7 @@ const SideBarDeckButton = ({ text, endpoint, board = "home", Icon = null }: Side
         <Button asChild variant="ghost" className="p-0 pl-2 rounded-2xl justify-start font-normal group-data-[collapsible=icon]:justify-end data-[active=true]:bg-primary/10"
         data-active={isActive}>
             <Link href={`/deck/${endpoint}/${board}`}>
-                {Icon && <span className="m-0"><Icon /></span>}
+                <span className={Icon?"m-0":"m-2"}>{Icon  && <Icon />}</span>
                 <span className={sidebarComponentCSS}>{state === "expanded" && text}</span>
             </Link>
         </Button>
@@ -112,7 +112,10 @@ const Sidebar = () => {
                 </span>
             </SidebarGroupLabel>
             <SidebarGroup className="overflow-auto mt-0 pt-0">
-                <SideBarDeckButton text="F l o w" endpoint="endpoint" board="kanban"/>
+                <SideBarDeckButton
+                    Icon={ExampleDeck.icon}
+                    text={ExampleDeck.name}
+                    endpoint={ExampleDeck.id} />
             </SidebarGroup >
         </SidebarContent>
         <SidebarFooter>
