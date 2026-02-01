@@ -1,21 +1,13 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
-import preferArrow from 'eslint-plugin-prefer-arrow';
 import react from 'eslint-plugin-react';
+import preferArrow from 'eslint-plugin-prefer-arrow';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import nextPlugin from '@next/eslint-plugin-next';
 
 export default [
+  nextPlugin.configs.recommended,
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
@@ -25,14 +17,16 @@ export default [
       },
     },
     plugins: {
-      'prefer-arrow': preferArrow,
       react,
       '@typescript-eslint': tsPlugin,
+      'prefer-arrow': preferArrow,
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
       ...react.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'off',
+      'react/prop-types': 'off',
       'prefer-arrow/prefer-arrow-functions': [
         'error',
         {

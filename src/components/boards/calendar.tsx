@@ -1,4 +1,5 @@
 'use client';
+
 import { faker } from '@faker-js/faker';
 import {
   GanttCreateMarkerTrigger,
@@ -14,6 +15,7 @@ import {
   GanttTimeline,
   GanttToday,
 } from '@/components/composites/gantt';
+import groupBy from 'lodash.groupby';
 import { EyeIcon, LinkIcon, TrashIcon } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -22,19 +24,6 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from '@/components/primitives/context-menu';
-
-
-const getByPath = (obj, path) => {
-  return path.split('.').reduce((acc, key) => acc?.[key], obj);
-}
-
-const groupBy = (arr, path) => {
-  return arr.reduce((acc, item) => {
-    const key = typeof path === 'function' ? path(item) : getByPath(item, path);
-    (acc[key] = acc[key] || []).push(item);
-    return acc;
-  }, {});
-}
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 const statuses = [
@@ -87,6 +76,7 @@ const exampleFeatures = Array.from({ length: 20 })
     initiative: faker.helpers.arrayElement(exampleInitiatives),
     release: faker.helpers.arrayElement(exampleReleases),
   }));
+
 const exampleMarkers = Array.from({ length: 6 })
   .fill(null)
   .map(() => ({
@@ -134,9 +124,9 @@ const Example = () => {
     console.log(`Add feature: ${date.toISOString()}`);
   return (
     <GanttProvider
-      className="border"
+      className='border'
       onAddItem={handleAddFeature}
-      range="monthly"
+      range='monthly'
       zoom={100}
     >
       <GanttSidebar>
@@ -158,18 +148,18 @@ const Example = () => {
           {Object.entries(sortedGroupedFeatures).map(([group, features]) => (
             <GanttFeatureListGroup key={group}>
               {features.map((feature) => (
-                <div className="flex" key={feature.id}>
+                <div className='flex' key={feature.id}>
                   <ContextMenu>
                     <ContextMenuTrigger asChild>
                       <button
                         onClick={() => handleViewFeature(feature.id)}
-                        type="button"
+                        type='button'
                       >
                         <GanttFeatureItem
                           onMove={handleMoveFeature}
                           {...feature}
                         >
-                          <p className="flex-1 truncate text-xs">
+                          <p className='flex-1 truncate text-xs'>
                             {feature.name}
                           </p>
                         </GanttFeatureItem>
@@ -177,21 +167,21 @@ const Example = () => {
                     </ContextMenuTrigger>
                     <ContextMenuContent>
                       <ContextMenuItem
-                        className="flex items-center gap-2"
+                        className='flex items-center gap-2'
                         onClick={() => handleViewFeature(feature.id)}
                       >
-                        <EyeIcon className="text-muted-foreground" size={16} />
+                        <EyeIcon className='text-muted-foreground' size={16} />
                         View feature
                       </ContextMenuItem>
                       <ContextMenuItem
-                        className="flex items-center gap-2"
+                        className='flex items-center gap-2'
                         onClick={() => handleCopyLink(feature.id)}
                       >
-                        <LinkIcon className="text-muted-foreground" size={16} />
+                        <LinkIcon className='text-muted-foreground' size={16} />
                         Copy link
                       </ContextMenuItem>
                       <ContextMenuItem
-                        className="flex items-center gap-2 text-destructive"
+                        className='flex items-center gap-2 text-destructive'
                         onClick={() => handleRemoveFeature(feature.id)}
                       >
                         <TrashIcon size={16} />
@@ -217,4 +207,5 @@ const Example = () => {
     </GanttProvider>
   );
 };
+
 export default Example;

@@ -81,6 +81,8 @@ export type GanttMarkerProps = {
   id: string;
   date: Date;
   label: string;
+  onRemove?: (id: string) => void;
+  className?: string;
 };
 
 export type Range = 'daily' | 'monthly' | 'quarterly';
@@ -110,6 +112,7 @@ export type GanttContextProps = {
 
 const getsDaysIn = (range: Range) => {
   // For when range is daily
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   let fn = (_date: Date) => 1;
 
   if (range === 'monthly' || range === 'quarterly') {
@@ -1085,12 +1088,9 @@ export const GanttFeatureList: FC<GanttFeatureListProps> = ({
   </div>
 );
 
-export const GanttMarker: FC<
-  GanttMarkerProps & {
-    onRemove?: (id: string) => void;
-    className?: string;
-  }
-> = memo(({ label, date, id, onRemove, className }) => {
+export const GanttMarker = memo((
+  { label, date, id, onRemove, className }: GanttMarkerProps
+) => {
   const gantt = useContext(GanttContext);
   const differenceIn = useMemo(
     () => getDifferenceIn(gantt.range),

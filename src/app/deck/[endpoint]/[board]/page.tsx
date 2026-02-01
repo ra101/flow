@@ -25,6 +25,7 @@ const boardContainerMap = {
 
 const Deck = () => {
   const {endpoint, board} = useParams<{ endpoint: string, board: BoardType}>();
+  console.log(endpoint)
   const BoardContainer = boardContainerMap[board];
   if (!BoardsIds.includes(board)) return notFound();
   return (

@@ -24,7 +24,10 @@ import {
   useCurrentEditor,
 } from '@tiptap/react';
 
-import { BubbleMenu, type BubbleMenuProps, FloatingMenu, type FloatingMenuProps} from '@tiptap/react/menus';
+import {
+  BubbleMenu, type BubbleMenuProps,
+  // FloatingMenu, type FloatingMenuProps
+} from '@tiptap/react/menus';
 
 import { Button } from '@/components/primitives/button';
 import {
@@ -1236,7 +1239,6 @@ export const EditorFormatUnderline = ({
 
   return (
     <BubbleMenuButton
-      // @ts-expect-error "TipTap extensions are not typed"
       command={() => editor.chain().focus().toggleUnderline().run()}
       hideName={hideName}
       icon={UnderlineIcon}
@@ -1297,7 +1299,6 @@ export const EditorLinkSelector = ({
     const href = getUrlFromString(url);
 
     if (href) {
-      // @ts-expect-error "TipTap extensions are not typed"
       editor.chain().focus().setLink({ href }).run();
       onOpenChange?.(false);
     }
@@ -1342,7 +1343,6 @@ export const EditorLinkSelector = ({
             <Button
               className="flex h-8 items-center rounded-sm p-1 text-destructive transition-all hover:bg-destructive-foreground dark:hover:bg-destructive"
               onClick={() => {
-                // @ts-expect-error "TipTap extensions are not typed"
                 editor.chain().focus().unsetLink().run();
                 onOpenChange?.(false);
               }}

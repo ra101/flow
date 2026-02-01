@@ -149,7 +149,7 @@ const NoteBookPage = ({EditorComponents}: {EditorComponents: React.ComponentType
 
 const NoteBook = () => (
   <SidebarProvider className="h-full w-full overflow-hidden"
-        style={{ "--sidebar-width-icon": "0" }}>
+        style={{ "--sidebar-width-icon": "0" } as React.CSSProperties}>
     <SidebarPrimitive className="border-none" collapsible="icon">
       <SidebarContent className='bg-background text-foreground'>
         <SidebarGroupLabel>
